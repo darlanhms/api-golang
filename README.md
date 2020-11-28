@@ -1,2 +1,2 @@
 # api-golang
-A simple web API using golang with fiber, an express like package
+A simple API using golang with fiber, an express like package
