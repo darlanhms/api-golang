@@ -36,4 +36,17 @@ func RegisterProducts(app *fiber.App) {
 		ctx.Send(products)
 		return nil
 	})
+
+	app.Delete("/products/:id", func(ctx *fiber.Ctx) error {
+		result, err := controllers.DeleteProductById(ctx.Params("id"))
+
+		if err != nil {
+			ctx.JSON(err)
+			return err
+		}
+
+		ctx.JSON(result)
+
+		return nil
+	})
 }

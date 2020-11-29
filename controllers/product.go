@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -48,4 +49,22 @@ func GetProducts() ([]byte, error) {
 	products, _ := json.Marshal(results)
 
 	return products, nil
+}
+
+func DeleteProductById(id string) (*mongo.DeleteResult, error) {
+	productsCollection, err := database.GetMongoDbCollection("products")
+
+	if err != nil {
+		return nil, err
+	}
+
+	objID, _ := primitive.ObjectIDFromHex(id)
+
+	result, err := productsCollection.DeleteOne(context.Background(), bson.M{"_id": objID})
+
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
 }
