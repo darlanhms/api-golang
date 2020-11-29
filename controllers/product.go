@@ -71,3 +71,27 @@ func DeleteProductByID(id string) (*mongo.DeleteResult, error) {
 
 	return result, nil
 }
+
+// UpdateProduct update a product that has the id passed throught the param
+func UpdateProduct(id string, product models.Product) (*mongo.UpdateResult, error) {
+	productsCollection, err := database.GetMongoDbCollection("products")
+
+	if err != nil {
+		return nil, err
+	}
+
+	objID, _ := primitive.ObjectIDFromHex(id)
+
+	update := bson.M{
+		"$set": product,
+	}
+
+	result, err := productsCollection.UpdateOne(context.Background(), bson.M{"_id": objID}, update)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
+
+}

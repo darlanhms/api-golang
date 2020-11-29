@@ -50,4 +50,20 @@ func RegisterProducts(app *fiber.App) {
 
 		return nil
 	})
+
+	app.Patch("/products/:id", func(ctx *fiber.Ctx) error {
+		var product models.Product
+		json.Unmarshal([]byte(ctx.Body()), &product)
+
+		result, err := controllers.UpdateProduct(ctx.Params("id"), product)
+
+		if err != nil {
+			ctx.JSON(err)
+			return err
+		}
+
+		ctx.JSON(result)
+
+		return nil
+	})
 }
