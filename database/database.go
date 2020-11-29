@@ -25,6 +25,7 @@ func getMongoDbConnection() (*mongo.Client, error) {
 	return client, nil
 }
 
+//GetMongoDbCollection get specific collection from the database
 func GetMongoDbCollection(CollectionName string) (*mongo.Collection, error) {
 	client, err := getMongoDbConnection()
 

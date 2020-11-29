@@ -11,6 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+// CreateProduct register a product in the database
 func CreateProduct(product models.Product) (*mongo.InsertOneResult, error) {
 	productsCollection, err := database.GetMongoDbCollection("products")
 
@@ -27,6 +28,7 @@ func CreateProduct(product models.Product) (*mongo.InsertOneResult, error) {
 	return result, nil
 }
 
+// GetProducts list all the products that are registered in the database
 func GetProducts() ([]byte, error) {
 	productsCollection, err := database.GetMongoDbCollection("products")
 
@@ -51,7 +53,8 @@ func GetProducts() ([]byte, error) {
 	return products, nil
 }
 
-func DeleteProductById(id string) (*mongo.DeleteResult, error) {
+// DeleteProductByID delete a product with specific ID
+func DeleteProductByID(id string) (*mongo.DeleteResult, error) {
 	productsCollection, err := database.GetMongoDbCollection("products")
 
 	if err != nil {

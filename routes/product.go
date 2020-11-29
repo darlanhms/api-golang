@@ -8,6 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// RegisterProducts : Register all routes related to products CRUD
 func RegisterProducts(app *fiber.App) {
 	app.Post("/products", func(ctx *fiber.Ctx) error {
 
@@ -38,7 +39,7 @@ func RegisterProducts(app *fiber.App) {
 	})
 
 	app.Delete("/products/:id", func(ctx *fiber.Ctx) error {
-		result, err := controllers.DeleteProductById(ctx.Params("id"))
+		result, err := controllers.DeleteProductByID(ctx.Params("id"))
 
 		if err != nil {
 			ctx.JSON(err)
