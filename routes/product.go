@@ -24,4 +24,16 @@ func RegisterProducts(app *fiber.App) {
 		ctx.JSON(&result)
 		return nil
 	})
+
+	app.Get("/products", func(ctx *fiber.Ctx) error {
+		products, err := controllers.GetProducts()
+
+		if err != nil {
+			ctx.Status(500).JSON(err)
+			return err
+		}
+
+		ctx.Send(products)
+		return nil
+	})
 }
